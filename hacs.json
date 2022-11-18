@@ -1,10 +1,8 @@
 {
-    "name": "Integration blueprint",
+    "name": "April Brother/AB BLE Gateway",
     "hacs": "1.6.0",
     "domains": [
-        "binary_sensor",
-        "sensor",
-        "switch"
+        "bluetooth"
     ],
-    "homeassistant": "0.118.0"
+    "homeassistant": "2022.12.0"
 }
