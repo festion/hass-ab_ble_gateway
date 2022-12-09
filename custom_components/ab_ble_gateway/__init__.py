@@ -10,7 +10,6 @@ from homeassistant.helpers.dispatcher import (
 import logging
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import Platform
-from homeassistant.core import HomeAssistant
 from homeassistant.core import CALLBACK_TYPE, HomeAssistant, callback
 import msgpack
 from homeassistant.helpers.typing import ConfigType
@@ -43,7 +42,7 @@ PLATFORMS: list[Platform] = [Platform.BINARY_SENSOR]
 _LOGGER = logging.getLogger(__name__)
 
 
-class AB_BLE_Scanner(BaseHaRemoteScanner):
+class AbBleScanner(BaseHaRemoteScanner):
     """Scanner for esphome."""
 
     @callback
@@ -70,10 +69,6 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up April Brother BLE Gateway from a config entry."""
 
     hass.data.setdefault(DOMAIN, {})
-    # TODO 1. Create API instance
-    # TODO 2. Validate the API connection (and authentication)
-    # TODO 3. Store an API object for your platforms to access
-    # hass.data[DOMAIN][entry.entry_id] = MyApi(...)
 
     source_id = str(entry.unique_id)
     new_info_callback = async_get_advertisement_callback(hass)
@@ -84,14 +79,10 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         source=source_id,
         can_connect=False,
     )
-    scanner = AB_BLE_Scanner(hass=hass, scanner_id=source_id, name=entry.title, new_info_callback=new_info_callback, connector=connector, connectable=connectable)
+    scanner = AbBleScanner(hass=hass, scanner_id=source_id, name=entry.title, new_info_callback=new_info_callback, connector=connector, connectable=connectable)
 
     config = entry.as_dict()
-    mqttHost = config['data']['mqtt_host']
-    mqttPort = config['data']['mqtt_port']
-    mqttTopic = config['data']['mqtt_topic']
-
-    await mqtt.async_subscribe(hass, mqttTopic, scanner.async_on_mqtt_message, encoding=None)
+    await mqtt.async_subscribe(hass, config['data']['mqtt_topic'], scanner.async_on_mqtt_message, encoding=None)
 
     return True
 

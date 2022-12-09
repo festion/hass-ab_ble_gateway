@@ -1,8 +1,9 @@
 {
-    "name": "April Brother/AB BLE Gateway",
+    "name": "April Brother (AB) BLE Gateway",
     "hacs": "1.6.0",
     "domains": [
         "bluetooth"
     ],
+    "render_readme":true,
     "homeassistant": "2022.12.0"
 }
