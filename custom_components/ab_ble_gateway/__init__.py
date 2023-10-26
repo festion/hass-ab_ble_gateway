@@ -21,6 +21,7 @@ from homeassistant.components.bluetooth import (
     HaBluetoothConnector,
     async_get_advertisement_callback,
     async_register_scanner,
+    MONOTONIC_TIME,
 )
 from homeassistant.const import (
     ATTR_COMMAND,
@@ -60,8 +61,9 @@ class AbBleScanner(BaseHaRemoteScanner):
                 service_data=adv['service_data'],
                 manufacturer_data=adv['manufacturer_data'],
                 tx_power=None,
-                details=dict()
-            )
+                details=dict(),
+                 # the msg.payload does have a field "time" but its time passed since boot and I don't know how to figure out the boot timestamp so we just use the current time here
+                advertisement_monotonic_time=MONOTONIC_TIME()            )
         return
 
 
