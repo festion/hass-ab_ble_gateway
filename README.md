@@ -19,21 +19,6 @@ Please make sure to have setup the [MQTT component](https://www.home-assistant.i
 The compoennt supports authenticated login and automatically checks that the MQTT settings match. 
 
 
-## Configuration of the Gateway
-The easiest and most portable way to configure the gateway is through the  electron based configuration tool at [AprilBrother/gw4-config-tool](https://github.com/AprilBrother/gw4-config-tool). You'll need to have node + npm installed to run it.
-
-1. Clone the repo 
-```
-git clone https://github.com/AprilBrother/gw4-config-tool.git
-cd gw4-config-tool 
-```
-2. Install configuration tool incl. dependencies
-```
-npm i .
-```
-3. Launch 
-```
-npm start
-```
-
-**Note:** The configuration tool should find the gateway automatically (interestingly enough this happens by enumerating the whole subnet instead of using the SSDP broadcast... 🙄)
+## More Details
+For more details, please check out the post on my personal website: [
+December 9, 2022 - Forwarding Bluetooth with the AB BLE Gateway](https://christian.kuendig.info/posts/2022-12-hass-ab_ble/).

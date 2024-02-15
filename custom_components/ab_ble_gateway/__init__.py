@@ -73,7 +73,6 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     hass.data.setdefault(DOMAIN, {})
 
     source_id = str(entry.unique_id)
-    new_info_callback = async_get_advertisement_callback(hass)
     connectable = False
 
     connector = HaBluetoothConnector(
@@ -81,7 +80,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         source=source_id,
         can_connect=False,
     )
-    scanner = AbBleScanner(hass=hass, scanner_id=source_id, name=entry.title, new_info_callback=new_info_callback, connector=connector, connectable=connectable)
+    scanner = AbBleScanner(scanner_id=source_id, name=entry.title,  connector=connector, connectable=connectable)
 
     config = entry.as_dict()
     await mqtt.async_subscribe(hass, config['data']['mqtt_topic'], scanner.async_on_mqtt_message, encoding=None)
