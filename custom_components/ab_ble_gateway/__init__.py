@@ -49,21 +49,24 @@ class AbBleScanner(BaseHaRemoteScanner):
     @callback
     def async_on_mqtt_message(self, msg: ReceiveMessage) -> None:
         """Call the registered callback."""
-        for d in msgpack.unpackb(msg.payload, raw=True)[b'devices']:
-            raw_data = parse_ap_ble_devices_data(d)
-            adv = parse_raw_data(raw_data)
+        try:
+            for d in msgpack.unpackb(msg.payload, raw=True)[b'devices']:
+                raw_data = parse_ap_ble_devices_data(d)
+                adv = parse_raw_data(raw_data)
 
-            self._async_on_advertisement(
-                address=adv['address'].upper(),
-                rssi=adv['rssi'],
-                local_name=adv['local_name'],
-                service_uuids=adv['service_uuids'],
-                service_data=adv['service_data'],
-                manufacturer_data=adv['manufacturer_data'],
-                tx_power=None,
-                details=dict(),
-                 # the msg.payload does have a field "time" but its time passed since boot and I don't know how to figure out the boot timestamp so we just use the current time here
-                advertisement_monotonic_time=MONOTONIC_TIME()            )
+                self._async_on_advertisement(
+                    address=adv['address'].upper(),
+                    rssi=adv['rssi'],
+                    local_name=adv['local_name'],
+                    service_uuids=adv['service_uuids'],
+                    service_data=adv['service_data'],
+                    manufacturer_data=adv['manufacturer_data'],
+                    tx_power=None,
+                    details=dict(),
+                    # the msg.payload does have a field "time" but its time passed since boot and I don't know how to figure out the boot timestamp so we just use the current time here
+                    advertisement_monotonic_time=MONOTONIC_TIME()            )
+        except Exception as err:
+            _LOGGER.error(err)
         return
 
 
