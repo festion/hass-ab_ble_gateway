@@ -169,7 +169,7 @@ class AbBleFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         # http://192.168.178.223/config
         # {"conn-type":3,"host":"mqtt.bconimg.com","port":1883,"mqtt-topic":"gw/test555","cfg-topic":"device-config","one-cfg-topic":"device-config-","one-pub-topic":"pub-config-","http-url":"","req-int":1,"min-rssi":-127,"adv-filter":0,"dup-filter":0,"scan-act":0,"mqtt-id-prefix":"XBG_","mqtt-username":"","mqtt-password":"","mqtt-config":0,"mqtt-retain":0,"mqtt-qos":0,"basic-auth":1,"req-format":0,"ntp-enabled":0,"ntp1":"ntp1.aliyun.com","ntp2":"ntp2.aliyun.com","mqtts":0,"https":0,"wss":0,"sch-type":0,"metadata":"","tz":"","sch-begin":"","sch-end":"","filter-mfg":0,"filter-uuid":""}
         # make sure conn-type is 3, mqtt settings match and show an error otherwise
-        mqtt_data = mqtt.util.get_mqtt_data(self.hass, True)
+        mqtt_data = mqtt.util.get_mqtt_data(self.hass)
         if mqtt_data.client is None or not mqtt.util.mqtt_config_entry_enabled(self.hass):
             errors["base"] = "mqtt_not_enabled"
         mqtt_config = mqtt_data.client.conf
