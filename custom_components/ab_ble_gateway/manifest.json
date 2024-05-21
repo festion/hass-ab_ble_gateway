@@ -1,16 +1,26 @@
 {
-    "domain": "ab_ble_gateway",
-    "name": "April Brother BLE Gateway",
-    "config_flow": true,
-    "documentation": "https://www.home-assistant.io/integrations/ab_ble_gateway",
-    "requirements": ["msgpack==1.0.4"],
-    "dependencies": ["bluetooth","mqtt"],
-    "zeroconf": ["_xbg._tcp.local."],
-    "homekit": {},
-    "codeowners": [
-      "@chkuendig"
-    ],
-    "version": "0.1.0",
-    "iot_class": "local_push",
-    "loggers": ["ab_ble_gateway"]
+  "domain": "ab_ble_gateway",
+  "name": "April Brother BLE Gateway",
+  "config_flow": true,
+  "documentation": "https://github.com/chkuendig/hass-ab_ble_gateway",
+  "requirements": [
+    "msgpack==1.0.4"
+  ],
+  "dependencies": [
+    "bluetooth",
+    "mqtt"
+  ],
+  "zeroconf": [
+    "_xbg._tcp.local."
+  ],
+  "homekit": {},
+  "codeowners": [
+    "@chkuendig"
+  ],
+  "issue_tracker": "https://github.com/chkuendig/hass-ab_ble_gateway/issues",
+  "version": "0.1.0",
+  "iot_class": "local_push",
+  "loggers": [
+    "ab_ble_gateway"
+  ]
 }
