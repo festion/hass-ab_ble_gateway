@@ -14,6 +14,7 @@ from homeassistant.core import CALLBACK_TYPE, HomeAssistant, callback
 import msgpack
 from homeassistant.helpers.typing import ConfigType
 from homeassistant.components import mqtt
+from homeassistant.components.bluetooth.const import DOMAIN as BLUETOOTH_DOMAIN
 from homeassistant.components.mqtt.models import ReceiveMessage
 from homeassistant.setup import async_when_setup
 from .const import DOMAIN
@@ -86,14 +87,37 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     scanner = AbBleScanner(scanner_id=source_id, name=entry.title,  connector=connector, connectable=connectable)
 
     config = entry.as_dict()
-    await mqtt.async_subscribe(hass, config['data']['mqtt_topic'], scanner.async_on_mqtt_message, encoding=None)
-
+    
+    # Get mqtt_topic from the correct location in config
+    mqtt_topic = config.get('data', {}).get('mqtt_topic')
+    
+    if not mqtt_topic:
+        _LOGGER.error("Missing mqtt_topic in configuration")
+        return False
+        
+    await mqtt.async_subscribe(hass, mqtt_topic, scanner.async_on_mqtt_message, encoding=None)
+    
+    # Register the scanner
+    unregister = async_register_scanner(hass, scanner, True)
+    
+    # Store references for future cleanup
+    hass.data[DOMAIN][entry.entry_id] = {
+        "scanner": scanner,
+        "unregister": unregister
+    }
+    
     return True
 
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Unload a config entry."""
     if unload_ok := await hass.config_entries.async_unload_platforms(entry, PLATFORMS):
-        hass.data[DOMAIN].pop(entry.entry_id)
+        if entry.entry_id in hass.data[DOMAIN]:
+            # Unregister the scanner
+            if "unregister" in hass.data[DOMAIN][entry.entry_id]:
+                hass.data[DOMAIN][entry.entry_id]["unregister"]()
+            
+            # Remove data
+            hass.data[DOMAIN].pop(entry.entry_id)
 
     return unload_ok

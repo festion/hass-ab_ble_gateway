@@ -20,6 +20,12 @@ import requests
 
 from homeassistant import config_entries, data_entry_flow
 from homeassistant.components import zeroconf
+try:
+    # Use the new recommended location for ZeroconfServiceInfo
+    from homeassistant.helpers.service_info.zeroconf import ZeroconfServiceInfo
+except ImportError:
+    # Fallback for backward compatibility
+    from homeassistant.components.zeroconf import ZeroconfServiceInfo
 from homeassistant.data_entry_flow import FlowResult
 from homeassistant.const import (
     CONF_HOST,
@@ -54,7 +60,7 @@ class AbBleFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
     VERSION = 1
 
     async def async_step_zeroconf(
-        self, discovery_info: zeroconf.ZeroconfServiceInfo
+        self, discovery_info: ZeroconfServiceInfo
     ) -> FlowResult:
         if not discovery_info.properties["hw"].startswith("4."):
             _LOGGER.error("Only AB BLE Gateway revisions 4.x are supported ")
@@ -115,7 +121,7 @@ class AbBleFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             self.config["mqtt_id_prefix"] = user_input["mqtt_id_prefix"]
             self.config["mqtt_topic"] = user_input["mqtt_topic"]
             self.config["mqtt_user"] = user_input["mqtt_user"] if "mqtt_user" in user_input else None
-            self.config["mqtt_mqtt_password"] = user_input["mqtt_mqtt_password"] if "mqtt_mqtt_password" in user_input else None
+            self.config["mqtt_password"] = user_input["mqtt_password"] if "mqtt_password" in user_input else None
             return await self._async_get_entry()
         host = (
             user_input[CONF_HOST]
@@ -190,6 +196,8 @@ class AbBleFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         data_schema = {
             vol.Required("mqtt_id_prefix", description={"suggested_value": gateway_config['mqtt-id-prefix']}): str,
             vol.Required("mqtt_topic", description={"suggested_value": gateway_config['mqtt-topic']}): str,
+            vol.Optional("mqtt_user", description={"suggested_value": gateway_config['mqtt-username']}): str,
+            vol.Optional("mqtt_password", description={"suggested_value": gateway_config['mqtt-password']}): str,
         }
 
         return self.async_show_form(
