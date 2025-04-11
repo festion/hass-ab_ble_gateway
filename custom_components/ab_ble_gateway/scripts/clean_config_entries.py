@@ -1,7 +1,7 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """
 Script to clean up failed integration config entries.
-Usage: python3 clean_config_entries.py <path-to-config-dir> [--domain DOMAIN] [--dry-run]
+Usage: python clean_config_entries.py <path-to-config-dir> [--domain DOMAIN] [--dry-run]
 """
 
 import argparse
