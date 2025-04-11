@@ -45,7 +45,11 @@
     "error": {
       "cannot_connect": "[%key:common::config_flow::error::cannot_connect%]",
       "invalid_host": "[%key:common::config_flow::error::invalid_host%]",
-      "unknown": "[%key:common::config_flow::error::unknown%]"
+      "unknown": "[%key:common::config_flow::error::unknown%]",
+      "mqtt_not_enabled": "MQTT integration is not enabled in Home Assistant",
+      "gateway_mqtt_not_configured": "Gateway is not configured to use MQTT (must use connection type 3)",
+      "mqtt_broker_mismatch": "Gateway MQTT broker settings don't match Home Assistant MQTT configuration",
+      "mqtt_auth_mismatch": "Gateway MQTT username/password don't match Home Assistant MQTT configuration"
     }
   }
 }
