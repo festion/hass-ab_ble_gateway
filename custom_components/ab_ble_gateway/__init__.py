@@ -1,5 +1,6 @@
 """The April Brother BLE Gateway integration."""
 from __future__ import annotations
+import os
 from homeassistant.components.bluetooth import BaseHaRemoteScanner
 from .util import parse_ap_ble_devices_data, parse_raw_data
 from homeassistant.helpers.dispatcher import (
