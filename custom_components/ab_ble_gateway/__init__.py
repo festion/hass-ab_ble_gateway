@@ -39,7 +39,8 @@ TWO_CHAR = re.compile("..")
 
 # TODO List the platforms that you want to support.
 # For your initial PR, limit it to 1 platform.
-PLATFORMS: list[Platform] = [Platform.BINARY_SENSOR]
+# No platform entities for this integration - it just registers BLE scanners
+PLATFORMS: list[Platform] = []
 
 _LOGGER = logging.getLogger(__name__)
 
