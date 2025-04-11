@@ -1,5 +1,7 @@
 [![hacs_badge](https://img.shields.io/badge/HACS-Custom-41BDF5.svg)](https://github.com/hacs/integration)
-#  April Brother (AB) BLE Gateway V4 Component
+#  April Brother (AB) BLE Gateway V4 Component - Enhanced
+
+> **Note**: This is an enhanced fork of the original component with improved error messages and fixes.
 This component allows forwarding BLE data from the AB BLE Gateway V4 to the new [bluetooth component](https://www.home-assistant.io/integrations/bluetooth/) released in Home Assistant [2022.8](https://www.home-assistant.io/blog/2022/08/03/release-20228/#first-class-bluetooth-support). 
 
 
