@@ -13,13 +13,13 @@ The `clean_config_entries.py` script helps remove failed integration entries fro
 sudo systemctl stop home-assistant@homeassistant  # For systemd-based installations
 
 # Run the script in dry-run mode first to see what would be changed
-python clean_config_entries.py /path/to/your/homeassistant/config --dry-run
+./clean_config_entries.py /path/to/your/homeassistant/config --dry-run
 
 # Remove all failed entries
-python clean_config_entries.py /path/to/your/homeassistant/config
+./clean_config_entries.py /path/to/your/homeassistant/config
 
 # Remove only entries for a specific domain (e.g., ab_ble_gateway)
-python clean_config_entries.py /path/to/your/homeassistant/config --domain ab_ble_gateway
+./clean_config_entries.py /path/to/your/homeassistant/config --domain ab_ble_gateway
 
 # Start Home Assistant after cleaning
 sudo systemctl start home-assistant@homeassistant  # For systemd-based installations
