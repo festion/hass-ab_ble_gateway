@@ -7,5 +7,6 @@
     "country": "ALL",
     "persistent_directory": "userfiles",
     "zip_release": true,
-    "filename": "ab_ble_gateway.zip"
+    "filename": "ab_ble_gateway.zip",
+    "hide_default_branch": true
 }
