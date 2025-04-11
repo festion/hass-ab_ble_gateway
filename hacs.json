@@ -1,6 +1,11 @@
 {
     "name": "April Brother (AB) BLE Gateway",
     "hacs": "1.6.0",
-    "render_readme":true,
-    "homeassistant": "2024.6.0"
+    "render_readme": true,
+    "homeassistant": "2022.8.0",
+    "domains": ["ab_ble_gateway"],
+    "country": "ALL",
+    "persistent_directory": "userfiles",
+    "zip_release": true,
+    "filename": "ab_ble_gateway.zip"
 }
